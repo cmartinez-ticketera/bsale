@@ -1,0 +1,32 @@
+{
+    "name": "ticketeradigital/bsale",
+    "description": "Bsale connector",
+    "autoload": {
+        "psr-4": {
+            "ticketeradigital\\bsale\\": "src/",
+            "ticketeradigital\\bsale\\tests\\": "tests/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Carlos Martínez",
+            "email": "cmtinz@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "ticketeradigital\\bsale\\BsaleServiceProvider"
+            ]
+        }
+    },
+    "require-dev": {
+        "orchestra/testbench": "^6.28",
+        "phpunit/phpunit": "^9.6"
+    },
+    "scripts": {
+        "post-autoload-dump": [
+            "@php vendor/bin/testbench package:discover --ansi"
+        ]
+    }
+}

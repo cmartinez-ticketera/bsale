@@ -1,0 +1,1 @@
+{"version":1,"defects":{"ticketeradigital\\bsale\\tests\\Unit\\BsaleTest::test_no_base_url":3},"times":{"ticketeradigital\\bsale\\tests\\Unit\\BsaleTest::test_no_access_token":0.085,"ticketeradigital\\bsale\\tests\\Unit\\BsaleTest::test_no_base_url":0.005}}
