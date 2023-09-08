@@ -17,6 +17,6 @@ class ProductUpdated
      */
     public function __construct(public BsaleProduct $product)
     {
-        Log::debug("Product $product->internal_id updated");
+        Log::debug('Product updated', [$product]);
     }
 }
