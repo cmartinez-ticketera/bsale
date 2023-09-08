@@ -55,4 +55,36 @@ class Bsale
             'data' => $response,
         ]);
     }
+
+    public static function getProducts(array $args = []): array
+    {
+        try {
+            $response = self::makeRequest('/v1/products.json', $args);
+        } catch (BsaleException $e) {
+            throw $e;
+        } catch (Throwable $e) {
+            exit($e->getMessage());
+        }
+
+        return $response;
+    }
+
+    public static function fetchAllAndCallback(string $endpoint, callable $callback, mixed $callbackArgs = null): void
+    {
+        $limit = 50;
+        $offset = 0;
+        try {
+            do {
+                $params = compact('limit', 'offset');
+                $response = self::makeRequest($endpoint, $params);
+                $count = $response['count'];
+                $offset = $offset + $limit;
+                call_user_func($callback, $response['items'] ?? [], $callbackArgs);
+            } while ($offset < ($count + $limit));
+        } catch (BsaleException $e) {
+            throw $e;
+        } catch (Throwable $e) {
+            exit($e->getMessage());
+        }
+    }
 }
