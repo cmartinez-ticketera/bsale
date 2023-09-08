@@ -4,11 +4,12 @@ namespace ticketeradigital\bsale\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Log;
+use Throwable;
 use ticketeradigital\bsale\Bsale;
 use ticketeradigital\bsale\BsaleException;
-use ticketeradigital\bsale\Events\ProductUpdated;
+use ticketeradigital\bsale\Events\StockUpdated;
 
-class BsaleProduct extends Model
+class BsaleStock extends Model
 {
     protected $fillable = [
         'data',
@@ -19,9 +20,22 @@ class BsaleProduct extends Model
     ];
 
     protected $dispatchesEvents = [
-        'saved' => ProductUpdated::class,
-        'updated' => ProductUpdated::class,
+        'saved' => StockUpdated::class,
+        'updated' => StockUpdated::class,
     ];
+
+    /**
+     * @throws Throwable
+     */
+    public function refresh(): array
+    {
+        $id = $this->internal_id;
+        $response = Bsale::makeRequest("/v1/stocks/$id.json");
+        $this->data = $response;
+        $this->save();
+
+        return $response;
+    }
 
     public static function upsertMany(array $items): void
     {
@@ -29,7 +43,7 @@ class BsaleProduct extends Model
             $product = self::firstOrCreate([
                 'internal_id' => $item['id'],
             ], ['data' => $item]);
-            Log::debug("Product $product->id created.");
+            Log::debug("Stock $product->id created.");
         }
     }
 
@@ -38,6 +52,6 @@ class BsaleProduct extends Model
      */
     public static function fetchAll(): void
     {
-        Bsale::fetchAllAndCallback('/v1/products.json', [self::class, 'upsertMany']);
+        Bsale::fetchAllAndCallback('/v1/stocks.json', [self::class, 'upsertMany']);
     }
 }

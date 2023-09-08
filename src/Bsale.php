@@ -56,19 +56,6 @@ class Bsale
         ]);
     }
 
-    public static function getProducts(array $args = []): array
-    {
-        try {
-            $response = self::makeRequest('/v1/products.json', $args);
-        } catch (BsaleException $e) {
-            throw $e;
-        } catch (Throwable $e) {
-            exit($e->getMessage());
-        }
-
-        return $response;
-    }
-
     public static function fetchAllAndCallback(string $endpoint, callable $callback, mixed $callbackArgs = null): void
     {
         $limit = 50;

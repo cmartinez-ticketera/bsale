@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Log;
 use ticketeradigital\bsale\Bsale;
 use ticketeradigital\bsale\BsaleException;
+use ticketeradigital\bsale\Events\VariantUpdated;
 
 class BsaleVariant extends Model
 {
@@ -15,6 +16,11 @@ class BsaleVariant extends Model
 
     protected $casts = [
         'data' => 'array',
+    ];
+
+    protected $dispatchesEvents = [
+        'saved' => VariantUpdated::class,
+        'updated' => VariantUpdated::class,
     ];
 
     public static function upsertMany(array $items): void
