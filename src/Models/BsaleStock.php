@@ -3,6 +3,7 @@
 namespace ticketeradigital\bsale\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\Log;
 use Throwable;
 use ticketeradigital\bsale\Bsale;
@@ -24,10 +25,15 @@ class BsaleStock extends Model
         'updated' => StockUpdated::class,
     ];
 
+    public function variant(): BelongsTo
+    {
+        return $this->belongsTo(BsaleVariant::class, 'variant_id', 'internal_id');
+    }
+
     /**
      * @throws Throwable
      */
-    public function refresh(): array
+    public function fetch(): array
     {
         $id = $this->internal_id;
         $response = Bsale::makeRequest("/v1/stocks/$id.json");

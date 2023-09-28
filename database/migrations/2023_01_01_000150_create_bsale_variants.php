@@ -14,8 +14,10 @@ return new class extends Migration
         Schema::create('bsale_variants', function (Blueprint $table) {
             $table->id();
             $table->json('data');
-            $table->bigInteger('internal_id')->storedAs('JSON_UNQUOTE(data->"$.id")')->comment('Bsale internal product id.');
+            $table->bigInteger('internal_id')->storedAs('JSON_UNQUOTE(data->"$.id")')->comment('Bsale internal variant id.');
+            $table->bigInteger('product_id')->storedAs('JSON_UNQUOTE(data->"$.product.id")')->comment('Bsale internal product id.');
             $table->string('description')->storedAs('JSON_UNQUOTE(data->"$.description")')->comment('Bsale description.');
+            $table->index(['internal_id', 'product_id']);
             $table->timestamps();
         });
     }

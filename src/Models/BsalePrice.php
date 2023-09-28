@@ -3,6 +3,7 @@
 namespace ticketeradigital\bsale\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\Log;
 use ticketeradigital\bsale\Bsale;
 use ticketeradigital\bsale\BsaleException;
@@ -23,6 +24,22 @@ class BsalePrice extends Model
         'saved' => PriceUpdated::class,
         'updated' => PriceUpdated::class,
     ];
+
+    public function variant(): BelongsTo
+    {
+        return $this->belongsTo(BsaleVariant::class, 'variant_id', 'internal_id');
+    }
+
+    public function fetch(): array
+    {
+        $id = $this->internal_id;
+        $list = $this->price_list_id;
+        $response = Bsale::makeRequest("/v1/price_lists/$list/details/$id.json");
+        $this->data = $response;
+        $this->save();
+
+        return $response;
+    }
 
     public static function upsertMany(array $items, $priceListId): void
     {

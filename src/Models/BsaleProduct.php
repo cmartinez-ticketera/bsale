@@ -3,6 +3,7 @@
 namespace ticketeradigital\bsale\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Log;
 use ticketeradigital\bsale\Bsale;
 use ticketeradigital\bsale\BsaleException;
@@ -22,6 +23,11 @@ class BsaleProduct extends Model
         'saved' => ProductUpdated::class,
         'updated' => ProductUpdated::class,
     ];
+
+    public function variants(): HasMany
+    {
+        return $this->hasMany(BsaleVariant::class, 'product_id', 'internal_id');
+    }
 
     public static function upsertMany(array $items): void
     {

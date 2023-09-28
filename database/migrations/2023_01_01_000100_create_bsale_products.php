@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('bsale_products', function (Blueprint $table) {
             $table->id();
             $table->json('data');
-            $table->bigInteger('internal_id')->storedAs('JSON_UNQUOTE(data->"$.id")')->comment('Bsale internal product id.');
+            $table->bigInteger('internal_id')->storedAs('JSON_UNQUOTE(data->"$.id")')->comment('Bsale internal product id.')->index();
             $table->string('name')->storedAs('JSON_UNQUOTE(data->"$.name")')->comment('Bsale internal product id.');
             $table->timestamps();
         });

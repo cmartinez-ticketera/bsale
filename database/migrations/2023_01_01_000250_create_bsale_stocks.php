@@ -15,9 +15,11 @@ return new class extends Migration
             $table->id();
             $table->json('data');
             $table->bigInteger('internal_id')->storedAs('JSON_UNQUOTE(data->"$.id")')->comment('Bsale price list detail id.');
+            $table->bigInteger('variant_id')->storedAs('JSON_UNQUOTE(data->"$.variant.id")')->comment('Bsale variant id.');
             $table->integer('quantity')->storedAs('JSON_UNQUOTE(data->"$.quantity")');
             $table->integer('quantity_reserved')->storedAs('JSON_UNQUOTE(data->"$.quantityReserved")');
             $table->integer('quantity_available')->storedAs('JSON_UNQUOTE(data->"$.quantityAvailable")');
+            $table->index(['internal_id', 'variant_id']);
             $table->timestamps();
         });
     }
