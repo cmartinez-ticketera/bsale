@@ -5,6 +5,7 @@ namespace ticketeradigital\bsale\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Log;
 use ticketeradigital\bsale\Bsale;
 use ticketeradigital\bsale\BsaleException;
@@ -30,9 +31,15 @@ class BsaleVariant extends Model
         return $this->belongsTo(BsaleProduct::class, 'product_id', 'internal_id');
     }
 
+    /* Not to be used: a variant can have stocks as offices */
     public function stock(): HasOne
     {
         return $this->hasOne(BsaleStock::class, 'variant_id', 'internal_id');
+    }
+
+    public function stocks(): HasMany
+    {
+        return $this->hasMany(BsaleStock::class, 'variant_id', 'internal_id');
     }
 
     public function price(): HasOne
