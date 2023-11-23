@@ -4,7 +4,6 @@ namespace ticketeradigital\bsale\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Support\Facades\Log;
 use ticketeradigital\bsale\Bsale;
 use ticketeradigital\bsale\BsaleException;
 use ticketeradigital\bsale\Events\PriceUpdated;
@@ -44,10 +43,12 @@ class BsalePrice extends Model
     public static function upsertMany(array $items, $priceListId): void
     {
         foreach ($items as $item) {
-            $product = self::firstOrCreate([
+            $price = self::firstOrNew([
                 'internal_id' => $item['id'],
             ], ['data' => $item, 'price_list_id' => $priceListId]);
-            Log::debug("Price $product->id created.");
+            $price->data = $item;
+            $price->price_list_id = $priceListId;
+            $price->save();
         }
     }
 

@@ -4,7 +4,6 @@ namespace ticketeradigital\bsale\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Support\Facades\Log;
 use ticketeradigital\bsale\Bsale;
 use ticketeradigital\bsale\BsaleException;
 use ticketeradigital\bsale\Events\ProductUpdated;
@@ -29,13 +28,24 @@ class BsaleProduct extends Model
         return $this->hasMany(BsaleVariant::class, 'product_id', 'internal_id');
     }
 
+    public function fetch(): array
+    {
+        $id = $this->internal_id;
+        $response = Bsale::makeRequest("/v1/products/$id.json");
+        $this->data = $response;
+        $this->save();
+
+        return $response;
+    }
+
     public static function upsertMany(array $items): void
     {
         foreach ($items as $item) {
-            $product = self::firstOrCreate([
+            $product = self::firstOrNew([
                 'internal_id' => $item['id'],
-            ], ['data' => $item]);
-            Log::debug("Product $product->id created.");
+            ]);
+            $product->data = $item;
+            $product->save();
         }
     }
 
@@ -45,5 +55,15 @@ class BsaleProduct extends Model
     public static function fetchAll(): void
     {
         Bsale::fetchAllAndCallback('/v1/products.json', [self::class, 'upsertMany']);
+    }
+
+    public function getControlsStockAttribute()
+    {
+        return (bool) $this->data['stockControl'];
+    }
+
+    public function getEnabledAttribute()
+    {
+        return ! $this->data['state'];
     }
 }

@@ -4,9 +4,8 @@ namespace ticketeradigital\bsale\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use ticketeradigital\bsale\Bsale;
 use ticketeradigital\bsale\BsaleException;
 use ticketeradigital\bsale\Events\VariantUpdated;
@@ -26,9 +25,9 @@ class BsaleVariant extends Model
         'updated' => VariantUpdated::class,
     ];
 
-    public function product(): BelongsTo
+    public function variant(): BelongsTo
     {
-        return $this->belongsTo(BsaleProduct::class, 'product_id', 'internal_id');
+        return $this->belongsTo(Bsalevariant::class, 'variant_id', 'internal_id');
     }
 
     /* Not to be used: a variant can have stocks as offices */
@@ -56,7 +55,7 @@ class BsaleVariant extends Model
         throw_if(! $_officeId, \Exception::class, 'Office id not set');
         $params = [
             'note' => $note,
-            'officeId' => 2,
+            'officeId' => _officeId,
             'details' => [[
                 'quantity' => $quantity,
                 'variantId' => $this->internal_id,
@@ -66,13 +65,24 @@ class BsaleVariant extends Model
         return Bsale::makeRequest('/v1/stocks/consumptions.json', $params, 'POST');
     }
 
+    public function fetch(): array
+    {
+        $id = $this->internal_id;
+        $response = Bsale::makeRequest("/v1/variants/$id.json");
+        $this->data = $response;
+        $this->save();
+
+        return $response;
+    }
+
     public static function upsertMany(array $items): void
     {
         foreach ($items as $item) {
-            $product = self::firstOrCreate([
+            $variant = self::firstOrNew([
                 'internal_id' => $item['id'],
-            ], ['data' => $item]);
-            Log::debug("Variant $product->id created.");
+            ]);
+            $variant->data = $item;
+            $variant->save();
         }
     }
 
@@ -82,5 +92,15 @@ class BsaleVariant extends Model
     public static function fetchAll(): void
     {
         Bsale::fetchAllAndCallback('/v1/variants.json', [self::class, 'upsertMany']);
+    }
+
+    public function getunlimitedStockAttribute()
+    {
+        return (bool) $this->data['unlimitedStock'];
+    }
+
+    public function getEnabledAttribute()
+    {
+        return ! $this->data['state'];
     }
 }

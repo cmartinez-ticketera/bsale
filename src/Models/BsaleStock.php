@@ -4,7 +4,6 @@ namespace ticketeradigital\bsale\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Support\Facades\Log;
 use Throwable;
 use ticketeradigital\bsale\Bsale;
 use ticketeradigital\bsale\BsaleException;
@@ -46,10 +45,11 @@ class BsaleStock extends Model
     public static function upsertMany(array $items): void
     {
         foreach ($items as $item) {
-            $product = self::firstOrCreate([
+            $stock = self::firstOrNew([
                 'internal_id' => $item['id'],
-            ], ['data' => $item]);
-            Log::debug("Stock $product->id created.");
+            ]);
+            $stock->data = $item;
+            $stock->save();
         }
     }
 
