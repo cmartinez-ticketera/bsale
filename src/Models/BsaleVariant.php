@@ -25,9 +25,9 @@ class BsaleVariant extends Model
         'updated' => VariantUpdated::class,
     ];
 
-    public function variant(): BelongsTo
+    public function product(): BelongsTo
     {
-        return $this->belongsTo(Bsalevariant::class, 'variant_id', 'internal_id');
+        return $this->belongsTo(BsaleProduct::class, 'product_id', 'internal_id');
     }
 
     /* Not to be used: a variant can have stocks as offices */
