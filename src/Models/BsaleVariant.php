@@ -55,7 +55,7 @@ class BsaleVariant extends Model
         throw_if(! $_officeId, \Exception::class, 'Office id not set');
         $params = [
             'note' => $note,
-            'officeId' => _officeId,
+            'officeId' => $_officeId,
             'details' => [[
                 'quantity' => $quantity,
                 'variantId' => $this->internal_id,
