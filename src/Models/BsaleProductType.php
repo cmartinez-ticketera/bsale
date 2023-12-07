@@ -3,13 +3,11 @@
 namespace ticketeradigital\bsale\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use ticketeradigital\bsale\Bsale;
 use ticketeradigital\bsale\BsaleException;
-use ticketeradigital\bsale\Events\ProductUpdated;
 
-class BsaleProduct extends Model
+class BsaleProductType extends Model
 {
     protected $fillable = [
         'data',
@@ -19,25 +17,15 @@ class BsaleProduct extends Model
         'data' => 'array',
     ];
 
-    protected $dispatchesEvents = [
-        'saved' => ProductUpdated::class,
-        'updated' => ProductUpdated::class,
-    ];
-
-    public function variants(): HasMany
+    public function products(): HasMany
     {
-        return $this->hasMany(BsaleVariant::class, 'product_id', 'internal_id');
-    }
-
-    public function type(): BelongsTo
-    {
-        return $this->belongsTo(BsaleProductType::class, 'product_type_id', 'internal_id');
+        return $this->hasMany(BsaleProduct::class, 'product_type_id', 'internal_id');
     }
 
     public function fetch(): array
     {
         $id = $this->internal_id;
-        $response = Bsale::makeRequest("/v1/products/$id.json");
+        $response = Bsale::makeRequest("/v1/product_types/$id.json");
         $this->data = $response;
         $this->save();
 
@@ -60,16 +48,6 @@ class BsaleProduct extends Model
      */
     public static function fetchAll(): void
     {
-        Bsale::fetchAllAndCallback('/v1/products.json', [self::class, 'upsertMany']);
-    }
-
-    public function getControlsStockAttribute()
-    {
-        return (bool) $this->data['stockControl'];
-    }
-
-    public function getEnabledAttribute()
-    {
-        return ! $this->data['state'];
+        Bsale::fetchAllAndCallback('/v1/product_types.json', [self::class, 'upsertMany']);
     }
 }
