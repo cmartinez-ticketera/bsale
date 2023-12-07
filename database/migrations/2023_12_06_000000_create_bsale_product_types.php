@@ -16,7 +16,6 @@ return new class extends Migration
             $table->json('data');
             $table->string('name')->storedAs('JSON_UNQUOTE(data->"$.name")');
             $table->bigInteger('internal_id')->storedAs('JSON_UNQUOTE(data->"$.id")')->comment('Bsale product type id.');
-            $table->string('name')->storedAs('JSON_UNQUOTE(data->"$.name")');
             $table->index(['internal_id']);
             $table->timestamps();
         });
