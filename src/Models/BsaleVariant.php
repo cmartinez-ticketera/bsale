@@ -46,6 +46,11 @@ class BsaleVariant extends Model
         return $this->hasOne(BsalePrice::class, 'variant_id', 'internal_id');
     }
 
+    public function details(): HasMany
+    {
+        return $this->hasMany(BsaleDetail::class, 'variant_id', 'internal_id');
+    }
+
     /**
      * @throws \Throwable
      */
@@ -92,6 +97,15 @@ class BsaleVariant extends Model
     public static function fetchAll(): void
     {
         Bsale::fetchAllAndCallback('/v1/variants.json', [self::class, 'upsertMany']);
+    }
+
+    public static function fetchOne(int $id): self
+    {
+        $data = Bsale::makeRequest('/v1/variants/' . $id . '.json');
+        return self::updateOrCreate(
+            ["internal_id" => $id],
+            ["data" => $data]
+        );
     }
 
     public function getunlimitedStockAttribute()
