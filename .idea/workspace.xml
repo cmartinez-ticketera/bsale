@@ -5,15 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5a85de28-562b-4029-b159-66db1ddb7efe" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/database/migrations/2024_03_01_000000_create_bsale_details.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/2024_03_01_000000_create_bsale_returns.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Models/BsaleDetail.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Models/BsaleReturn.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/bsale.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/bsale.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2024_03_01_000000_create_bsale_shippings.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Models/BsaleShipping.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/a66c55c7-39d4-4e88-88b3-424151ca1eaf.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/a66c55c7-39d4-4e88-88b3-424151ca1eaf.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Models/BsaleDocument.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Models/BsaleDocument.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Models/BsaleVariant.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Models/BsaleVariant.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -198,7 +195,7 @@
       <updated>1711636149800</updated>
       <workItem from="1711636150839" duration="466000" />
       <workItem from="1711636675852" duration="19639000" />
-      <workItem from="1711977183859" duration="2356000" />
+      <workItem from="1711977183859" duration="8666000" />
     </task>
     <servers />
   </component>

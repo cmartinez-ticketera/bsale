@@ -26,6 +26,11 @@ class BsaleDocument extends Model
         return $this->hasMany(BsaleReturn::class, 'reference_document_id', 'internal_id');
     }
 
+    public function shippings(): HasMany
+    {
+        return $this->hasMany(BsaleShipping::class, 'guide_id', 'document_id');
+    }
+
     public function fetchDetails(): void
     {
         BsaleDetail::fetchDocumentDetails($this->document_id);
