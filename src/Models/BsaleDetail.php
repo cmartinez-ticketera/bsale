@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use ticketeradigital\bsale\Bsale;
 use ticketeradigital\bsale\BsaleException;
-use ticketeradigital\bsale\Events\PriceUpdated;
 
 class BsaleDetail extends Model
 {
@@ -44,11 +43,11 @@ class BsaleDetail extends Model
     {
         foreach ($items as $item) {
             self::updateOrCreate(
-                ["internal_id" => $item['id']],
+                ['internal_id' => $item['id']],
                 [
                     'internal_id' => $item['id'],
                     'data' => $item,
-                    'document_id' => $documentId
+                    'document_id' => $documentId,
                 ]
             );
         }

@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use ticketeradigital\bsale\Bsale;
 use ticketeradigital\bsale\BsaleException;
-use ticketeradigital\bsale\Events\PriceUpdated;
 
 class BsaleReturn extends Model
 {
@@ -32,8 +31,8 @@ class BsaleReturn extends Model
     {
         foreach ($items as $item) {
             self::updateOrCreate(
-                ["internal_id" => $item['id']],
-                ["data" => $item]
+                ['internal_id' => $item['id']],
+                ['data' => $item]
             );
         }
     }
@@ -48,17 +47,18 @@ class BsaleReturn extends Model
 
     public static function fetchOne($id)
     {
-        $data = Bsale::makeRequest('/v1/returns/' . $id . '.json');
+        $data = Bsale::makeRequest('/v1/returns/'.$id.'.json');
+
         return self::updateOrCreate(
-            ["internal_id" => $id],
-            ["data" => $data]
+            ['internal_id' => $id],
+            ['data' => $data]
         );
     }
 
     public static function generate(array $params)
     {
         $response = Bsale::makeRequest('/v1/returns.json', $params, 'POST');
-        return self::create(["data" => $response]);
-    }
 
+        return self::create(['data' => $response]);
+    }
 }

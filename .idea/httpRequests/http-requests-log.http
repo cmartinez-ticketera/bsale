@@ -1,0 +1,210 @@
+POST http://127.0.0.1:8000/api/bsale-webhooks
+Content-Length: 110
+User-Agent: IntelliJ HTTP Client/PhpStorm 2024.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+"action": "post",
+"topic": "documnet",
+"resource": "blah, blah, blah",
+"resourceId": "3434",
+"cpnId": "2",
+}
+
+<> 2024-04-17T181208.405.html
+
+###
+
+POST http://127.0.0.1:8000/api/bsale-webhooks
+Accept: application/json
+Content-Length: 110
+User-Agent: IntelliJ HTTP Client/PhpStorm 2024.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+
+{
+"action": "post",
+"topic": "documnet",
+"resource": "blah, blah, blah",
+"resourceId": "3434",
+"cpnId": "2",
+}
+
+<> 2024-04-17T181142.422.json
+
+###
+
+POST http://127.0.0.1:8000/api/bsale-webhooks
+Accept: application/json
+Content-Length: 110
+User-Agent: IntelliJ HTTP Client/PhpStorm 2024.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+
+{
+"action": "post",
+"topic": "documnet",
+"resource": "blah, blah, blah",
+"resourceId": "3434",
+"cpnId": "2",
+}
+
+<> 2024-04-17T181112.422.json
+
+###
+
+POST http://127.0.0.1:8000/api/bsale-webhooks
+Accept: application/json
+Content-Length: 110
+User-Agent: IntelliJ HTTP Client/PhpStorm 2024.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+
+{
+"action": "post",
+"topic": "documnet",
+"resource": "blah, blah, blah",
+"resourceId": "3434",
+"cpnId": "2",
+}
+
+<> 2024-04-17T181012.422.json
+
+###
+
+POST http://127.0.0.1:8000/api/bsale-webhooks
+Accept: application/json
+Content-Length: 181
+User-Agent: IntelliJ HTTP Client/PhpStorm 2024.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+
+{
+"action": "required|string|in:post,put,delete",
+"topic": "required|string",
+"resource": "required|string",
+"resourceId": "string",
+"cpnId": "integer",
+"send": "nullable|numeric"
+}
+
+<> 2024-04-17T180849.422.json
+
+###
+
+POST http://127.0.0.1:8000/api/bsale-webhooks
+Accept: application/json
+Content-Length: 193
+User-Agent: IntelliJ HTTP Client/PhpStorm 2024.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+
+{
+"action" => "required|string|in:post,put,delete",
+"topic" => "required|string",
+"resource" => "required|string",
+"resourceId" => "string",
+"cpnId" => "integer",
+"send" => "nullable|numeric"
+}
+
+<> 2024-04-17T180757.422.json
+
+###
+
+POST http://127.0.0.1:8000/api/bsale-webhooks
+Accept: application/json
+User-Agent: IntelliJ HTTP Client/PhpStorm 2024.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+content-length: 0
+
+<> 2024-04-17T180631.422.json
+
+###
+
+GET http://127.0.0.1:8000/api/bsale-webhooks
+Accept: application/json
+User-Agent: IntelliJ HTTP Client/PhpStorm 2024.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+content-length: 0
+
+<> 2024-04-17T180610.405.json
+
+###
+
+GET http://127.0.0.1:8000/api/bsale-webhooks
+Accept: application/json
+User-Agent: IntelliJ HTTP Client/PhpStorm 2024.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+content-length: 0
+
+<> 2024-04-17T180540.422.json
+
+###
+
+POST http://127.0.0.1:8000/api/bsale-webhooks
+Content-Type: application/json
+Content-Length: 204
+User-Agent: IntelliJ HTTP Client/PhpStorm 2024.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+    "action":"post",
+    "topic":"<Your-topic-here>",
+    "resource":"<Your-resource-here>",
+    "resourceId":"<Your-resourceId-here>",
+    "cpnId": "<Your-cpnId-here>",
+    "send": "<Your-send-here>"
+}
+
+<> 2024-04-17T180007.405.html
+
+###
+
+POST http://127.0.0.1:8000/api/bsale-webhooks
+Content-Type: application/json
+Content-Length: 204
+User-Agent: IntelliJ HTTP Client/PhpStorm 2024.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+    "action":"post",
+    "topic":"<Your-topic-here>",
+    "resource":"<Your-resource-here>",
+    "resourceId":"<Your-resourceId-here>",
+    "cpnId": "<Your-cpnId-here>",
+    "send": "<Your-send-here>"
+}
+
+<> 2024-04-17T175904.405.html
+
+###
+
+POST http://127.0.0.1:8000/api/bsale-webhooks
+Content-Type: application/json
+Content-Length: 204
+User-Agent: IntelliJ HTTP Client/PhpStorm 2024.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+    "action":"post",
+    "topic":"<Your-topic-here>",
+    "resource":"<Your-resource-here>",
+    "resourceId":"<Your-resourceId-here>",
+    "cpnId": "<Your-cpnId-here>",
+    "send": "<Your-send-here>"
+}
+
+<> 2024-04-17T175742.405.html
+
+###
+
+GET http://127.0.0.1:8000/api/bsale-webhooks
+Accept: application/json
+User-Agent: IntelliJ HTTP Client/PhpStorm 2024.1
+Accept-Encoding: br, deflate, gzip, x-gzip
+content-length: 0
+
+<> 2024-04-17T170900.422.json
+
+###
+

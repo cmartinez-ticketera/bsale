@@ -22,7 +22,8 @@
     },
     "require-dev": {
         "orchestra/testbench": "^6.28",
-        "phpunit/phpunit": "^9.6"
+        "phpunit/phpunit": "^9.6",
+        "laravel/pint": "^1.15"
     },
     "scripts": {
         "post-autoload-dump": [

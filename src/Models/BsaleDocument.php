@@ -34,15 +34,16 @@ class BsaleDocument extends Model
     public function fetchDetails(): void
     {
         BsaleDetail::fetchDocumentDetails($this->document_id);
-        $this->load("details");
+        $this->load('details');
     }
 
     public static function fetchOne($id)
     {
-        $data = Bsale::makeRequest('/v1/documents/' . $id . '.json');
+        $data = Bsale::makeRequest('/v1/documents/'.$id.'.json');
+
         return self::updateOrCreate(
-            ["document_id" => $id],
-            ["data" => $data]
+            ['document_id' => $id],
+            ['data' => $data]
         );
     }
 }

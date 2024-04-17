@@ -1,30 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="laravel_test@localhost">
-  <database-model serializer="dbm" dbms="MYSQL" family-id="MYSQL" format-version="4.51">
-    <root id="1">
-      <DefaultCasing>exact</DefaultCasing>
-      <DefaultEngine>InnoDB</DefaultEngine>
-      <DefaultTmpEngine>InnoDB</DefaultTmpEngine>
-      <Grants>laravel_test|schema||laravel_test|localhost|ALTER|G
-laravel_test|schema||laravel_test|localhost|ALTER ROUTINE|G
-laravel_test|schema||laravel_test|localhost|CREATE|G
-laravel_test|schema||laravel_test|localhost|CREATE ROUTINE|G
-laravel_test|schema||laravel_test|localhost|CREATE TEMPORARY TABLES|G
-laravel_test|schema||laravel_test|localhost|CREATE VIEW|G
-laravel_test|schema||laravel_test|localhost|DELETE|G
-laravel_test|schema||laravel_test|localhost|DROP|G
-laravel_test|schema||laravel_test|localhost|EVENT|G
-laravel_test|schema||laravel_test|localhost|EXECUTE|G
-laravel_test|schema||laravel_test|localhost|INDEX|G
-laravel_test|schema||laravel_test|localhost|INSERT|G
-laravel_test|schema||laravel_test|localhost|LOCK TABLES|G
-laravel_test|schema||laravel_test|localhost|REFERENCES|G
-laravel_test|schema||laravel_test|localhost|SELECT|G
-laravel_test|schema||laravel_test|localhost|SHOW VIEW|G
-laravel_test|schema||laravel_test|localhost|TRIGGER|G
-laravel_test|schema||laravel_test|localhost|UPDATE|G</Grants>
-      <ServerVersion>8.0.36</ServerVersion>
-    </root>
+  <database-model serializer="dbm" dbms="MYSQL" family-id="MYSQL" format-version="4.52">
+    <root id="1"/>
     <collation id="2" parent="1" name="armscii8_general_ci">
       <Charset>armscii8</Charset>
       <DefaultForCharset>1</DefaultForCharset>

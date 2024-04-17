@@ -54,7 +54,7 @@ class BsaleVariant extends Model
     /**
      * @throws \Throwable
      */
-    public function consume(string $note, int $officeId = null, int $quantity = 1): array
+    public function consume(string $note, ?int $officeId = null, int $quantity = 1): array
     {
         $_officeId = $officeId ?? config('bsale.default_office_id');
         throw_if(! $_officeId, \Exception::class, 'Office id not set');
@@ -101,10 +101,11 @@ class BsaleVariant extends Model
 
     public static function fetchOne(int $id): self
     {
-        $data = Bsale::makeRequest('/v1/variants/' . $id . '.json');
+        $data = Bsale::makeRequest('/v1/variants/'.$id.'.json');
+
         return self::updateOrCreate(
-            ["internal_id" => $id],
-            ["data" => $data]
+            ['internal_id' => $id],
+            ['data' => $data]
         );
     }
 

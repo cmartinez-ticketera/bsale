@@ -1,0 +1,14 @@
+{
+  "message": "The action field is required. (and 2 more errors)",
+  "errors": {
+    "action": [
+      "The action field is required."
+    ],
+    "topic": [
+      "The topic field is required."
+    ],
+    "resource": [
+      "The resource field is required."
+    ]
+  }
+}
