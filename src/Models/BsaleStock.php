@@ -7,9 +7,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Throwable;
 use ticketeradigital\bsale\Bsale;
 use ticketeradigital\bsale\BsaleException;
+use ticketeradigital\bsale\Events\ResourceUpdated;
 use ticketeradigital\bsale\Events\StockUpdated;
+use ticketeradigital\bsale\Interfaces\WebhookHandlerInterface;
 
-class BsaleStock extends Model
+class BsaleStock extends Model implements WebhookHandlerInterface
 {
     protected $fillable = [
         'data',
@@ -59,5 +61,10 @@ class BsaleStock extends Model
     public static function fetchAll(): void
     {
         Bsale::fetchAllAndCallback('/v1/stocks.json', [self::class, 'upsertMany']);
+    }
+
+    public static function handleWebhook(array $data, ResourceUpdated $resource): void
+    {
+        self::firstWhere('document_id', $resource->resourceId)->update(['data' => $data]);
     }
 }

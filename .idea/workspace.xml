@@ -5,17 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5a85de28-562b-4029-b159-66db1ddb7efe" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controllers/Controller.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controllers/WebHook.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Events/ResourceUpdated.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Listeners/UpdateResource.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Providers/EventServiceProvider.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Interfaces/WebhookHandlerInterface.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/a66c55c7-39d4-4e88-88b3-424151ca1eaf.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/a66c55c7-39d4-4e88-88b3-424151ca1eaf.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/BsaleServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/BsaleServiceProvider.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/config/bsale.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/bsale.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controllers/WebHook.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controllers/WebHook.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Events/ResourceUpdated.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Events/ResourceUpdated.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Listeners/UpdateResource.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Listeners/UpdateResource.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Models/BsaleDocument.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Models/BsaleDocument.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Models/BsalePrice.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Models/BsalePrice.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Models/BsaleProduct.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Models/BsaleProduct.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Models/BsaleStock.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Models/BsaleStock.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Models/BsaleVariant.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Models/BsaleVariant.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -145,6 +145,7 @@
       <path value="$PROJECT_DIR$/vendor/graham-campbell/result-type" />
       <path value="$PROJECT_DIR$/vendor/tijsverkoyen/css-to-inline-styles" />
       <path value="$PROJECT_DIR$/vendor/dragonmantank/cron-expression" />
+      <path value="$PROJECT_DIR$/vendor/laravel/pint" />
     </include_path>
   </component>
   <component name="ProjectColorInfo">{
@@ -155,29 +156,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "HTTP Request.All in rest-api_1.executor": "Run",
-    "HTTP Request.All in rest-api_2.executor": "Run",
-    "HTTP Request.rest-api_1 | #1.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.laravel-idea.update-module-directories": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "/home/cmtinz/bsale/database/migrations",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;HTTP Request.All in rest-api_1.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.All in rest-api_2.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.rest-api_1 | #1.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.laravel-idea.update-module-directories&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/cmtinz/bsale/database/migrations&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mysql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/database/migrations" />
@@ -207,8 +208,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-PS-241.14494.237" />
-        <option value="bundled-php-predefined-ba97393d7c68-8f0632a2a215-com.jetbrains.php.sharedIndexes-PS-241.14494.237" />
+        <option value="bundled-js-predefined-1d06a55b98c1-91d5c284f522-JavaScript-PS-241.15989.102" />
+        <option value="bundled-php-predefined-ba97393d7c68-c76157a7178b-com.jetbrains.php.sharedIndexes-PS-241.15989.102" />
       </set>
     </attachedChunks>
   </component>
@@ -224,7 +225,10 @@
       <workItem from="1711636675852" duration="19639000" />
       <workItem from="1711977183859" duration="21710000" />
       <workItem from="1712866940072" duration="229000" />
-      <workItem from="1713385569776" duration="8454000" />
+      <workItem from="1713385569776" duration="11562000" />
+      <workItem from="1714059941919" duration="1845000" />
+      <workItem from="1714064435401" duration="473000" />
+      <workItem from="1714065724464" duration="11084000" />
     </task>
     <servers />
   </component>

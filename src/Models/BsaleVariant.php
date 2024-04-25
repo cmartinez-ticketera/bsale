@@ -8,9 +8,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use ticketeradigital\bsale\Bsale;
 use ticketeradigital\bsale\BsaleException;
+use ticketeradigital\bsale\Events\ResourceUpdated;
 use ticketeradigital\bsale\Events\VariantUpdated;
+use ticketeradigital\bsale\Interfaces\WebhookHandlerInterface;
 
-class BsaleVariant extends Model
+class BsaleVariant extends Model implements WebhookHandlerInterface
 {
     protected $fillable = [
         'data',
@@ -117,5 +119,10 @@ class BsaleVariant extends Model
     public function getEnabledAttribute()
     {
         return ! $this->data['state'];
+    }
+
+    public static function handleWebhook(array $data, ResourceUpdated $resource): void
+    {
+        self::firstWhere('document_id', $resource->resourceId)->update(['data' => $data]);
     }
 }

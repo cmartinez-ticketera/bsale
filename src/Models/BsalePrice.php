@@ -7,8 +7,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use ticketeradigital\bsale\Bsale;
 use ticketeradigital\bsale\BsaleException;
 use ticketeradigital\bsale\Events\PriceUpdated;
+use ticketeradigital\bsale\Events\ResourceUpdated;
+use ticketeradigital\bsale\Interfaces\WebhookHandlerInterface;
 
-class BsalePrice extends Model
+class BsalePrice extends Model implements WebhookHandlerInterface
 {
     protected $fillable = [
         'data',
@@ -58,5 +60,10 @@ class BsalePrice extends Model
     public static function fetchPriceList(int $priceListId): void
     {
         Bsale::fetchAllAndCallback("/v1/price_lists/$priceListId/details.json", [self::class, 'upsertMany'], $priceListId);
+    }
+
+    public static function handleWebhook(array $data, ResourceUpdated $resource): void
+    {
+        self::firstWhere('document_id', $resource->resourceId)->update(['data' => $data]);
     }
 }

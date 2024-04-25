@@ -5,8 +5,10 @@ namespace ticketeradigital\bsale\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use ticketeradigital\bsale\Bsale;
+use ticketeradigital\bsale\Events\ResourceUpdated;
+use ticketeradigital\bsale\Interfaces\WebhookHandlerInterface;
 
-class BsaleDocument extends Model
+class BsaleDocument extends Model implements WebhookHandlerInterface
 {
     protected $fillable = [
         'data',
@@ -45,5 +47,10 @@ class BsaleDocument extends Model
             ['document_id' => $id],
             ['data' => $data]
         );
+    }
+
+    public static function handleWebhook(array $data, ResourceUpdated $resource): void
+    {
+        self::firstWhere('document_id', $resource->resourceId)->update(['data' => $data]);
     }
 }

@@ -13,6 +13,7 @@ class ResourceUpdated
         public string $action,
         public string $topic,
         public string $resourceId,
+        public string $link,
         public array $others
     ) {
     }
