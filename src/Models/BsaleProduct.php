@@ -75,8 +75,19 @@ class BsaleProduct extends Model implements WebhookHandlerInterface
         return ! $this->data['state'];
     }
 
-    public static function handleWebhook(array $data, ResourceUpdated $resource): void
+    public static function fetchOne(string|int $id): self
     {
-        self::firstWhere('internal_id', $resource->resourceId)->update(['data' => $data]);
+        $data = Bsale::makeRequest("/v1/products/$id.json");
+
+        return self::updateOrCreate(
+            ['internal_id' => $id],
+            ['data' => $data]
+        );
+    }
+
+    public static function handleWebhook(ResourceUpdated $resource): void
+    {
+        self::fetchOne($resource->resourceId);
     }
 }
+

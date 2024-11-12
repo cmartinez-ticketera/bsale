@@ -8,7 +8,10 @@ use ticketeradigital\bsale\Bsale;
 use ticketeradigital\bsale\BsaleException;
 use ticketeradigital\bsale\Events\PriceUpdated;
 use ticketeradigital\bsale\Events\ResourceUpdated;
+use ticketeradigital\bsale\Events\VariantUpdated;
 use ticketeradigital\bsale\Interfaces\WebhookHandlerInterface;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 
 class BsalePrice extends Model implements WebhookHandlerInterface
 {
@@ -57,13 +60,24 @@ class BsalePrice extends Model implements WebhookHandlerInterface
     /**
      * @throws BsaleException
      */
-    public static function fetchPriceList(int $priceListId): void
+    public static function fetchPriceList(int $priceListId, array $params = []): void
     {
-        Bsale::fetchAllAndCallback("/v1/price_lists/$priceListId/details.json", [self::class, 'upsertMany'], $priceListId);
+        $query = Arr::query($params);
+        $url = Str::of("/v1/price_lists/$priceListId/details.json")->when($query, fn ($url) => $url->append("?".$query));
+        Bsale::fetchAllAndCallback($url, [self::class, 'upsertMany'], $priceListId);
     }
 
-    public static function handleWebhook(array $data, ResourceUpdated $resource): void
+    /**
+     * @throws BsaleException
+     */
+    public static function fetchForVariant(string|int $priceListId, VariantUpdated|string|number $variant): void
     {
-        self::firstWhere('document_id', $resource->resourceId)->update(['data' => $data]);
+        $variantId = $variant instanceof BsaleVariant ? $variant->internal_id : $variant;
+        self::fetchPriceList($priceListId, ["variantId" => $variantId]);
+    }
+
+    public static function handleWebhook(ResourceUpdated $resource): void
+    {
+        self::fetchForVariant($resource->others["priceListId"], $resource->resourceId);
     }
 }

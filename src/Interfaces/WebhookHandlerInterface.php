@@ -6,5 +6,5 @@ use ticketeradigital\bsale\Events\ResourceUpdated;
 
 interface WebhookHandlerInterface
 {
-    public static function handleWebhook(array $data, ResourceUpdated $resource): void;
+    public static function handleWebhook(ResourceUpdated $resource): void;
 }

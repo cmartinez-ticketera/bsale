@@ -35,9 +35,7 @@ class UpdateResource
      */
     public function handle(ResourceUpdated $resource)
     {
-        logger('Hola desde el handler.');
         $handler = self::getWebhookHandler($resource->topic);
-        $response = Bsale::makeRequest($resource->link);
-        $handler::handleWebHook($response, $resource);
+        $handler::handleWebHook($resource);
     }
 }

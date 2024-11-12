@@ -2,4 +2,4 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::post('/', \ticketeradigital\bsale\Controllers\WebHook::class);
+Route::match(['post', 'put'], '/', \ticketeradigital\bsale\Controllers\WebHook::class);

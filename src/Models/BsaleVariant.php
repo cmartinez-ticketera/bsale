@@ -121,8 +121,8 @@ class BsaleVariant extends Model implements WebhookHandlerInterface
         return ! $this->data['state'];
     }
 
-    public static function handleWebhook(array $data, ResourceUpdated $resource): void
+    public static function handleWebhook(ResourceUpdated $resource): void
     {
-        self::firstWhere('document_id', $resource->resourceId)->update(['data' => $data]);
+        self::fetchOne($resource->resourceId);
     }
 }
