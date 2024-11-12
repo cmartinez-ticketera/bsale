@@ -81,12 +81,12 @@ class BsalePrice extends Model implements WebhookHandlerInterface
             $key = $priceList["id"];
             $currentPriceList[$key] = $priceList;
         }
-        cache()->forever("bsale_price_lists", $currentPriceList);
+        cache()->forever("bsale.price_lists", $currentPriceList);
     }
 
     public static function getPriceLists(): array
     {
-        return Cache::get("bsale_price_lists", function () {
+        return Cache::get("bsale.price_lists", function () {
             self::fetchPriceLists();
             return cache("bsale_price_lists");
         });
