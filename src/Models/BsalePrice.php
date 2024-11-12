@@ -12,6 +12,7 @@ use ticketeradigital\bsale\Events\VariantUpdated;
 use ticketeradigital\bsale\Interfaces\WebhookHandlerInterface;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Cache;
 
 class BsalePrice extends Model implements WebhookHandlerInterface
 {
@@ -65,6 +66,30 @@ class BsalePrice extends Model implements WebhookHandlerInterface
         $query = Arr::query($params);
         $url = Str::of("/v1/price_lists/$priceListId/details.json")->when($query, fn ($url) => $url->append("?".$query));
         Bsale::fetchAllAndCallback($url, [self::class, 'upsertMany'], $priceListId);
+    }
+
+    public static function fetchPriceLists(): void
+    {
+        Cache::forget('bsale_price_lists');
+        Bsale::fetchAllAndCallback("/v1/price_lists.json", [self::class, 'savePriceLists']);
+    }
+
+    public static function savePriceLists(array $priceLists): void
+    {
+        $currentPriceList = cache("bsale_price_lists", []);
+        foreach ($priceLists as $priceList) {
+            $key = $priceList["id"];
+            $currentPriceList[$key] = $priceList;
+        }
+        cache()->forever("bsale_price_lists", $currentPriceList);
+    }
+
+    public static function getPriceLists(): array
+    {
+        return Cache::get("bsale_price_lists", function () {
+            self::fetchPriceLists();
+            return cache("bsale_price_lists");
+        });
     }
 
     /**
