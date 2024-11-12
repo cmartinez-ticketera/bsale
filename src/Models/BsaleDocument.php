@@ -5,6 +5,7 @@ namespace ticketeradigital\bsale\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use ticketeradigital\bsale\Bsale;
+use ticketeradigital\bsale\Events\DocumentUpdated;
 use ticketeradigital\bsale\Events\ResourceUpdated;
 use ticketeradigital\bsale\Interfaces\WebhookHandlerInterface;
 
@@ -16,6 +17,11 @@ class BsaleDocument extends Model implements WebhookHandlerInterface
 
     protected $casts = [
         'data' => 'array',
+    ];
+
+    protected $dispatchesEvents = [
+        'saved' => DocumentUpdated::class,
+        'updated' => DocumentUpdated::class,
     ];
 
     public function details(): HasMany

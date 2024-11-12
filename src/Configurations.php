@@ -2,15 +2,12 @@
 
 namespace ticketeradigital\bsale;
 
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Str;
 
 class Configurations
 {
-    public function __construct(public ConfigurationEntities $entity)
-    {
-
-    }
+    public function __construct(public ConfigurationEntities $entity) {}
 
     public function fetchAll()
     {
@@ -18,22 +15,20 @@ class Configurations
         Bsale::fetchAllAndCallback($this->entity->getEndpoint(), fn (array $items) => $this->saveEntity($items));
     }
 
-    public function getCacheKey():string
+    public function getCacheKey(): string
     {
-        return Str::of($this->entity->name)->snake()->prepend("bsale.");
+        return Str::of($this->entity->name)->snake()->prepend('bsale.');
     }
 
-    public function saveEntity(array $items){
+    public function saveEntity(array $items)
+    {
         $currentValue = cache($this->getCacheKey(), []);
         foreach ($items as $item) {
-            $currentValue[$item["id"]] = $item;
+            $currentValue[$item['id']] = $item;
         }
         cache()->forever($this->getCacheKey(), $currentValue);
     }
 
-    /**
-     * @return void
-     */
     public function forget(): void
     {
         Cache::forget($this->getCacheKey());
@@ -43,10 +38,8 @@ class Configurations
     {
         return Cache::get($this->getCacheKey(), function () {
             $this->fetchAll();
+
             return cache($this->getCacheKey(), []);
         });
     }
-
-
-
 }

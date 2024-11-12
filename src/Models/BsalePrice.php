@@ -4,15 +4,13 @@ namespace ticketeradigital\bsale\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\Cache;
 use ticketeradigital\bsale\Bsale;
 use ticketeradigital\bsale\BsaleException;
 use ticketeradigital\bsale\Events\PriceUpdated;
 use ticketeradigital\bsale\Events\ResourceUpdated;
 use ticketeradigital\bsale\Events\VariantUpdated;
 use ticketeradigital\bsale\Interfaces\WebhookHandlerInterface;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Cache;
 
 class BsalePrice extends Model implements WebhookHandlerInterface
 {
@@ -63,32 +61,31 @@ class BsalePrice extends Model implements WebhookHandlerInterface
      */
     public static function fetchPriceList(int $priceListId, array $params = []): void
     {
-        $query = Arr::query($params);
-        $url = Str::of("/v1/price_lists/$priceListId/details.json")->when($query, fn ($url) => $url->append("?".$query));
-        Bsale::fetchAllAndCallback($url, [self::class, 'upsertMany'], $priceListId);
+        Bsale::fetchAllAndCallback("/v1/price_lists/$priceListId/details.json", [self::class, 'upsertMany'], $priceListId, $params);
     }
 
     public static function fetchPriceLists(): void
     {
         Cache::forget('bsale_price_lists');
-        Bsale::fetchAllAndCallback("/v1/price_lists.json", [self::class, 'savePriceLists']);
+        Bsale::fetchAllAndCallback('/v1/price_lists.json', [self::class, 'savePriceLists']);
     }
 
     public static function savePriceLists(array $priceLists): void
     {
-        $currentPriceList = cache("bsale_price_lists", []);
+        $currentPriceList = cache('bsale_price_lists', []);
         foreach ($priceLists as $priceList) {
-            $key = $priceList["id"];
+            $key = $priceList['id'];
             $currentPriceList[$key] = $priceList;
         }
-        cache()->forever("bsale.price_lists", $currentPriceList);
+        cache()->forever('bsale.price_lists', $currentPriceList);
     }
 
     public static function getPriceLists(): array
     {
-        return Cache::get("bsale.price_lists", function () {
+        return Cache::get('bsale.price_lists', function () {
             self::fetchPriceLists();
-            return cache("bsale_price_lists");
+
+            return cache('bsale_price_lists');
         });
     }
 
@@ -98,11 +95,11 @@ class BsalePrice extends Model implements WebhookHandlerInterface
     public static function fetchForVariant(string|int $priceListId, VariantUpdated|string|number $variant): void
     {
         $variantId = $variant instanceof BsaleVariant ? $variant->internal_id : $variant;
-        self::fetchPriceList($priceListId, ["variantId" => $variantId]);
+        self::fetchPriceList($priceListId, ['variantId' => $variantId]);
     }
 
     public static function handleWebhook(ResourceUpdated $resource): void
     {
-        self::fetchForVariant($resource->others["priceListId"], $resource->resourceId);
+        self::fetchForVariant($resource->others['priceListId'], $resource->resourceId);
     }
 }

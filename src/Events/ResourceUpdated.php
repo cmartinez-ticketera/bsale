@@ -15,6 +15,5 @@ class ResourceUpdated
         public string $resourceId,
         public string $link,
         public array $others
-    ) {
-    }
+    ) {}
 }

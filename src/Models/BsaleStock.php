@@ -10,8 +10,6 @@ use ticketeradigital\bsale\BsaleException;
 use ticketeradigital\bsale\Events\ResourceUpdated;
 use ticketeradigital\bsale\Events\StockUpdated;
 use ticketeradigital\bsale\Interfaces\WebhookHandlerInterface;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
 
 class BsaleStock extends Model implements WebhookHandlerInterface
 {
@@ -62,15 +60,13 @@ class BsaleStock extends Model implements WebhookHandlerInterface
      */
     public static function fetchAll(array $params = []): void
     {
-        $query = Arr::query($params);
-        $url = Str::of("/v1/stocks.json")->when($query, fn ($url) => $url->append("?".$query));
-        Bsale::fetchAllAndCallback($url, [self::class, 'upsertMany']);
+        Bsale::fetchAllAndCallback('/v1/stocks.json', [self::class, 'upsertMany'], null, $params);
     }
 
     public static function fetchForVariant(BsaleVariant|string|int $variant): void
     {
         $variantId = $variant instanceof BsaleVariant ? $variant->internal_id : $variant;
-        self::fetchAll(["variantId" => $variantId]);
+        self::fetchAll(['variantId' => $variantId]);
     }
 
     public static function fetchOne($id): self
@@ -83,8 +79,11 @@ class BsaleStock extends Model implements WebhookHandlerInterface
         );
     }
 
+    /**
+     * @throws Throwable
+     */
     public static function handleWebhook(ResourceUpdated $resource): void
     {
-        self::fetchOne($resource->resourceId);
+        self::fetchForVariant($resource->resourceId);
     }
 }

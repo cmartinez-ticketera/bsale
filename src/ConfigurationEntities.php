@@ -17,7 +17,7 @@ enum ConfigurationEntities
     public function getEndpoint(): string
     {
         $name = Str::of($this->name)->snake();
+
         return "/v1/$name.json";
     }
-
 }

@@ -56,13 +56,13 @@ class Bsale
         ]);
     }
 
-    public static function fetchAllAndCallback(string $endpoint, callable $callback, mixed $callbackArgs = null): void
+    public static function fetchAllAndCallback(string $endpoint, callable $callback, mixed $callbackArgs = null, array $endPointParams = []): void
     {
-        $limit = 50;
-        $offset = 0;
         try {
+            $limit = 50;
+            $offset = 0;
             do {
-                $params = compact('limit', 'offset');
+                $params = compact('limit', 'offset') + $endPointParams;
                 $response = self::makeRequest($endpoint, $params);
                 $count = $response['count'];
                 $offset = $offset + $limit;

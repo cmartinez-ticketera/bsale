@@ -90,4 +90,3 @@ class BsaleProduct extends Model implements WebhookHandlerInterface
         self::fetchOne($resource->resourceId);
     }
 }
-

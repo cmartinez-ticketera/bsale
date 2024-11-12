@@ -30,7 +30,7 @@ class BsaleServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->bind(Bsale::class, function () {
-            return new Bsale();
+            return new Bsale;
         });
         $this->app->register(EventServiceProvider::class);
     }

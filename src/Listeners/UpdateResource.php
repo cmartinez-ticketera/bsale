@@ -2,7 +2,6 @@
 
 namespace ticketeradigital\bsale\Listeners;
 
-use ticketeradigital\bsale\Bsale;
 use ticketeradigital\bsale\Events\ResourceUpdated;
 use ticketeradigital\bsale\Models\BsaleDocument;
 use ticketeradigital\bsale\Models\BsalePrice;
