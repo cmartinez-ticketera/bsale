@@ -5,7 +5,6 @@ namespace ticketeradigital\bsale\Events;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Log;
 use ticketeradigital\bsale\Models\BsaleDocument;
 
 class DocumentUpdated
@@ -15,8 +14,5 @@ class DocumentUpdated
     /**
      * Create a new event instance.
      */
-    public function __construct(public BsaleDocument $document)
-    {
-        Log::debug("Bsale document $document->document_id updated.");
-    }
+    public function __construct(public BsaleDocument $document) {}
 }

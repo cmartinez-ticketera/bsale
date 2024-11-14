@@ -5,7 +5,6 @@ namespace ticketeradigital\bsale\Events;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Log;
 use ticketeradigital\bsale\Models\BsaleStock;
 
 class StockUpdated
@@ -15,8 +14,5 @@ class StockUpdated
     /**
      * Create a new event instance.
      */
-    public function __construct(public BsaleStock $stock)
-    {
-        Log::debug("Stock $stock->internal_id updated");
-    }
+    public function __construct(public BsaleStock $stock) {}
 }

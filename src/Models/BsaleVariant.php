@@ -45,7 +45,12 @@ class BsaleVariant extends Model implements WebhookHandlerInterface
 
     public function price(): HasOne
     {
-        return $this->hasOne(BsalePrice::class, 'variant_id', 'internal_id');
+        return $this->prices()->one()->latestOfMany();
+    }
+
+    public function prices(): HasMany
+    {
+        return $this->hasMany(BsalePrice::class, 'variant_id', 'internal_id');
     }
 
     public function details(): HasMany
