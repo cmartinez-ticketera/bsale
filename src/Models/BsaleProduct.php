@@ -87,6 +87,11 @@ class BsaleProduct extends Model implements WebhookHandlerInterface
 
     public static function handleWebhook(ResourceUpdated $resource): void
     {
-        self::fetchOne($resource->resourceId);
+        $product = self::fetchOne($resource->resourceId);
+        if (! $product->variants->count()) {
+            BsaleVariant::fetchForProduct($product);
+        }
+
+        info('BsaleProducts updated/created', ['id' => $product->id]);
     }
 }

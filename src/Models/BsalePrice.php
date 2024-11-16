@@ -99,6 +99,8 @@ class BsalePrice extends Model implements WebhookHandlerInterface
 
     public static function handleWebhook(ResourceUpdated $resource): void
     {
-        self::fetchForVariant($resource->others['priceListId'], $resource->resourceId);
+        $priceListId = $resource->others['priceListId'];
+        self::fetchForVariant($priceListId, $resource->resourceId);
+        info('BsalePrice updated/created', ['variantId' => $resource->resourceId, 'priceList' => $priceListId]);
     }
 }

@@ -85,5 +85,6 @@ class BsaleStock extends Model implements WebhookHandlerInterface
     public static function handleWebhook(ResourceUpdated $resource): void
     {
         self::fetchForVariant($resource->resourceId);
+        info('BsaleStock updated/created', ['variantId' => $resource->resourceId]);
     }
 }

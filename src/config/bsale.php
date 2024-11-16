@@ -6,4 +6,5 @@ return [
     'default_office_id' => env('DEFAULT_OFFICE_ID'),
     'routeMiddleware' => ['api'],
     'routePrefix' => 'api/bsale-webhooks',
+    'enableWebHooks' => env('BSALE_WEBHOOKS_ENABLED', true),
 ];

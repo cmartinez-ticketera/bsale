@@ -4,6 +4,7 @@ namespace ticketeradigital\bsale\Events;
 
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
 
 class ResourceUpdated
 {
@@ -15,5 +16,7 @@ class ResourceUpdated
         public string $resourceId,
         public string $link,
         public array $others
-    ) {}
+    ) {
+        Log::debug('Bsale resource updated (listener)', ['topic' => $this->topic, 'resourceId' => $this->resourceId]);
+    }
 }

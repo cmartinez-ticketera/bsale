@@ -5,6 +5,7 @@ namespace ticketeradigital\bsale\Events;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
 use ticketeradigital\bsale\Models\BsaleVariant;
 
 class VariantUpdated
@@ -14,5 +15,8 @@ class VariantUpdated
     /**
      * Create a new event instance.
      */
-    public function __construct(public BsaleVariant $variant) {}
+    public function __construct(public BsaleVariant $variant)
+    {
+        Log::debug('BsaleVariant updated', ['id' => $this->variant->id]);
+    }
 }

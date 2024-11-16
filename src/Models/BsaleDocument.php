@@ -45,7 +45,7 @@ class BsaleDocument extends Model implements WebhookHandlerInterface
         $this->load('details');
     }
 
-    public static function fetchOne($id)
+    public static function fetchOne($id): self
     {
         $data = Bsale::makeRequest('/v1/documents/'.$id.'.json');
 
@@ -57,6 +57,7 @@ class BsaleDocument extends Model implements WebhookHandlerInterface
 
     public static function handleWebhook(ResourceUpdated $resource): void
     {
-        self::fetchOne($resource->resourceId);
+        $result = self::fetchOne($resource->resourceId);
+        info('BsaleDocument updated/created', ['id' => $result->id]);
     }
 }

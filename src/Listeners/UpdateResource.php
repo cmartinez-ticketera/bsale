@@ -2,6 +2,7 @@
 
 namespace ticketeradigital\bsale\Listeners;
 
+use Illuminate\Support\Facades\Log;
 use ticketeradigital\bsale\Events\ResourceUpdated;
 use ticketeradigital\bsale\Models\BsaleDocument;
 use ticketeradigital\bsale\Models\BsalePrice;
@@ -35,6 +36,7 @@ class UpdateResource
     public function handle(ResourceUpdated $resource)
     {
         $handler = self::getWebhookHandler($resource->topic);
+        Log::debug('Updating Bsale resource (listener)', ['resource' => $handler]);
         $handler::handleWebHook($resource);
     }
 }
