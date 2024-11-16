@@ -116,9 +116,13 @@ class BsaleVariant extends Model implements WebhookHandlerInterface
         );
     }
 
-    public function getunlimitedStockAttribute()
+    /**
+     * Whether the variant controls stock. Will be false whenever unlimitedStock is true or allowNegativeStock is true.
+     * unlimitedStock is the opposite of the variant's product stockControl.
+     */
+    public function getControlsStockAttribute(): bool
     {
-        return (bool) $this->data['unlimitedStock'];
+        return ! ((bool) $this->data['unlimitedStock'] || $this->data['allowNegativeStock']);
     }
 
     public function getEnabledAttribute()
