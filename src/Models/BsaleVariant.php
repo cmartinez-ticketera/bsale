@@ -77,6 +77,12 @@ class BsaleVariant extends Model implements WebhookHandlerInterface
         return Bsale::makeRequest('/v1/stocks/consumptions.json', $params, 'POST');
     }
 
+    public static function fetchForProduct(BsaleProduct|int $product)
+    {
+        $productId = $product instanceof BsaleProduct ? $product->internal_id : $product;
+        self::fetchAll(['productId' => $productId]);
+    }
+
     public function fetch(): array
     {
         $id = $this->internal_id;
@@ -101,9 +107,9 @@ class BsaleVariant extends Model implements WebhookHandlerInterface
     /**
      * @throws BsaleException
      */
-    public static function fetchAll(): void
+    public static function fetchAll(array $params = []): void
     {
-        Bsale::fetchAllAndCallback('/v1/variants.json', [self::class, 'upsertMany']);
+        Bsale::fetchAllAndCallback('/v1/variants.json', [self::class, 'upsertMany'], $params);
     }
 
     public static function fetchOne(int $id): self

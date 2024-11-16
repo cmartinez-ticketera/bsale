@@ -9,7 +9,6 @@ use ticketeradigital\bsale\Bsale;
 use ticketeradigital\bsale\BsaleException;
 use ticketeradigital\bsale\Events\PriceUpdated;
 use ticketeradigital\bsale\Events\ResourceUpdated;
-use ticketeradigital\bsale\Events\VariantUpdated;
 use ticketeradigital\bsale\Interfaces\WebhookHandlerInterface;
 
 class BsalePrice extends Model implements WebhookHandlerInterface
@@ -92,7 +91,7 @@ class BsalePrice extends Model implements WebhookHandlerInterface
     /**
      * @throws BsaleException
      */
-    public static function fetchForVariant(string|int $priceListId, VariantUpdated|string|number $variant): void
+    public static function fetchForVariant(string|int $priceListId, BsaleVariant|string|int $variant): void
     {
         $variantId = $variant instanceof BsaleVariant ? $variant->internal_id : $variant;
         self::fetchPriceList($priceListId, ['variantId' => $variantId]);
